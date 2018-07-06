@@ -3,10 +3,12 @@ grunt.config.init({
     pkg: grunt.file.readJSON('package.json'),
     'create-windows-installer': {
         x64: {
-            appDirectory: './platform/win32/app-win32-x64',
-            exe: 'Html5应用.exe',
+            appDirectory: './platform/win32/WebApplication-win32-x64',
+            exe: 'WebApplication.exe',
             description:"BenjaminWYj的html5版本的桌面软件",
-            title:'我的应用',
+            title:'Web Application',
+            noMsi: true,
+            setupIcon: 'favicon.ico',
             version:'1.1.1'
         }       
     }
