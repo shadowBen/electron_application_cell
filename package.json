@@ -8,7 +8,7 @@
     "start": "electron .",
     "copy": "cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json",
     "exe": "npm run copy && electron-packager ./dist WebApplication --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
-    "win32": ""
+    "win32": "npm run exe && grunt --force"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [

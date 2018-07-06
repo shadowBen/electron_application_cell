@@ -13,8 +13,8 @@ function createWindow () {
   mainWindow = new BrowserWindow({width: 1366, height: 768, resizable: false, maximizable: false})
 
   // and load the index.html of the app.
-  // mainWindow.loadFile('index.html')
-  mainWindow.loadURL('http://m.baidu.com/')
+  mainWindow.loadFile('index.html')
+  // mainWindow.loadURL('http://m.baidu.com/')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -52,6 +52,7 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
 var path = require('path');
 var handleStartupEvent = function () {
   if (process.platform !== 'win32') {
