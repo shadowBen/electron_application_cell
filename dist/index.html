@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>国家电网</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <style type="text/css">
+    canvas {
+        border: 1px solid #ccc;
+    }
+    </style>
+    <script type="text/javascript">
+    var Ball = function(x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+    Ball.prototype.draw = function(ctx) {
+
+        ctx.beginPath();
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 30;
+        ctx.arc(1366 / 2, 768 / 2, 200, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.fillStyle = "blue";
+        ctx.lineWidth = 1;
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+        ctx.fill();
+
+    };
+    window.onload = function() {
+        var canvas = document.getElementById('canvas'),
+            context = canvas.getContext('2d');
+        var width = canvas.width;
+        var height = canvas.height;
+        var angle = -Math.PI/2, // 旋转的角度
+            centerX = canvas.width / 2,
+            centerY = canvas.height / 2,
+            radius = 200, // 定义半径
+            speed = 0.02*Math.PI/2; // 每帧旋转角度的增加值
+        var xposAdded = 4;
+        //创建一个临时canvas来缓存主canvas的历史图像
+        var backCanvas = document.createElement('canvas'),
+            backCtx = backCanvas.getContext('2d');
+            backCanvas.width = width;
+            backCanvas.height = height;
+
+            //设置主canvas的绘制透明度
+            context.globalAlpha = 0.85;
+
+            //显示即将绘制的图像，忽略临时canvas中已存在的图像
+            backCtx.globalCompositeOperation = 'copy';
+        var ball = new Ball(0, 0, 15);
+
+
+
+        (function drawFrame() {
+            window.requestAnimationFrame(drawFrame, canvas);
+            //1.先将主canvas的图像缓存到临时canvas中
+            backCtx.drawImage(canvas, 0, 0, width, height);
+
+            //2.清除主canvas上的图像
+            context.fillStyle = "white";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            //centerX, centerY 的作用是让球绕画布中心旋转
+            if(((ball.x <= centerX-radius) || (ball.x >= centerX+radius)) && (angle<=-Math.PI/2 ||angle>=Math.PI/2)){
+                ball.x += xposAdded;
+                ball.y = centerY;
+            }else{
+                ball.x = centerX + Math.sin(angle) * radius;
+                ball.y = centerY + Math.cos(angle) * radius;
+                //角度增加
+                angle += speed;
+                console.log(Math.sin(angle))
+            }
+             //3.在主canvas上画新的
+            ball.draw(context);
+            //4.等新圆画完后，再把临时canvas的图像绘制回主canvas中
+            context.drawImage(backCanvas, 0, 0, width, height);
+        }());
+    }
+    </script>
+</head>
+
+<body class="no-select body">
+    <canvas id="canvas" width="1366" height="768"></canvas>
+</body>
