@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
+  "name": "electron-packager-cell",
   "version": "1.0.0",
-  "author": "GitHub",
+  "author": "BenjaminWYj",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
@@ -22,6 +22,8 @@
     "electron": "^2.0.0"
   },
   "dependencies": {
-    "electron-packager": "^12.1.0"
+    "electron-packager": "^12.1.0",
+    "grunt": "^1.0.3",
+    "grunt-electron-installer": "^2.1.0"
   }
 }
