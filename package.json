@@ -6,8 +6,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "copy": "cp -r ./renderer.js ./release/renderer.js && cp -r ./main.js ./release/main.js && cp -r ./package.json ./release/package.json",
-    "exe": "npm run copy && electron-packager ./release app --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico"
+    "copy": "cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json",
+    "exe": "npm run copy && electron-packager ./dist app --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
