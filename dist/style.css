@@ -1,0 +1,84 @@
+html,body{
+	margin: 0;
+}
+body *{
+   	user-select: none;
+}
+.icon {/*引入iconfont.cn的文件所需css*/
+	width: 1em; height: 1em;
+   	vertical-align: -0.15em;
+   	fill: currentColor;
+   	overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+.pointer{
+	cursor: pointer;
+}
+.w100{
+	width: 100%;
+}
+.h100{
+	height: 100%;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.tl{
+	text-align: left;
+}
+.tc{
+	text-align: center;
+}
+.tr{
+	text-align: right;
+}
+.abs{
+	position: absolute;
+}
+.block{
+	display: block;
+}
+.none{
+	display: none;
+}
+.in-block{
+	display: inline-block;
+}
+.ft-12{
+	font-size: 12px;
+}
+.ft-24{
+	font-size: 24px;
+}
+.ft-36{
+	font-size: 36px;
+}
+.ft-48{
+	font-size: 48px;
+}
+.ft-64{
+	font-size: 64px;
+}
+.mar-t{
+	margin-top: 5px;
+}
+.mar-r{
+	margin-right: 5px;
+}
+.mar-b{
+	margin-bottom: 5px;
+}
+.mar-l{
+	margin-left: 5px;
+}
