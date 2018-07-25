@@ -1,0 +1,44 @@
+{
+    "my_applicationmenu": {
+        "browsers": [{
+                "name": "H5 Browser",
+                "icon": "#icon-browser",
+                "url":"webapplication/bejson.html"
+            }
+        ],
+        "tools":[{
+                "name": "JSON Format",
+                "icon": "#icon-json-",
+                "url":"webapplication/JsonView.html"
+            }
+        ],
+        "apps":[
+        ]
+    },
+    "other_applicationmenu": {
+        "tools":[{
+                "name": "Terminal & Cmd",
+                "icon": "#icon-Terminal",
+                "cmd": "cmd /K 'cd/d %USERPROFILE%'"
+            },{
+                "name": "JSON Viewer",
+                "icon": "#icon-jsongeshihua",
+                "cmd": "resources/app/winapplication/JsonView/JsonView.exe"
+            },{
+                "name": "Internet Exporter",
+                "icon": "#icon-ie",
+                "cmd": "iexplore"
+            }
+        ],
+        "apps":[{
+                "name": "Sublime Text",
+                "icon": "#icon-Sublime",
+                "cmd": "resources/app/winapplication/Sublime/sublime_text.exe"
+            },{
+                "name": "Google Chrome",
+                "icon": "#icon-Chrome",
+                "cmd": "chrome"
+            }
+        ]
+    }
+}

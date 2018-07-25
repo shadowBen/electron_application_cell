@@ -8,13 +8,13 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="./renderer.js"></script>
     <script src="./internationalization/internationalization.js"></script>
-    <script src="./config/config.js"></script>
     <script src="./iconfont/iconfont.js"></script>
     <script src="./knockout.min.js"></script>
+    <script src="./network.js"></script>
     <style type="text/css">
     body{
-        width: 932px;
         height: 612px;
+        margin: 0 8px;
     }
     .titles{
         font-size:24px;
@@ -26,8 +26,21 @@
         float: left;
         background-color: white;
     }
+    .other-application-list{
+    	width: 100%;
+    	height: calc(100% - 48px - 28px);
+    }
+    .other-appicon{
+    	margin: 10px 0;
+    }
+    .other-appicon.tools>span{
+    	margin-bottom: 0;
+    }
     .my-appicon>span,.other-appicon>span{
         min-width: 124px;
+        margin-bottom: 10px;
+    }
+    .add-one{width: 48px;border: 1px solid #ccc;vertical-align: bottom;border-radius: 5px;position: absolute;margin: -10px 0 0 30px;text-shadow: none;font-size: 20px;color: black;text-align: center;line-height: 19px;padding: 5px 0;
     }
     </style>
 </head>
@@ -61,45 +74,86 @@
         </p>
     </div>
     <div class="application other-application h100">
-        <p class="other-title titles" data-bind="text:other_title"></p>
-        <p class="other-appicon" data-bind="foreach: browsers,visible:browsers().length>0">
-            <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_app">
-                <svg class="icon ft-48" aria-hidden="true">
-                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
-                </svg>
-                <span class="block mar-t" data-bind="text:name"></span>
-            </span>
+        <p class="other-title titles">
+        	<span data-bind="text:other_title"></span>
+        	<span id="other_add" class="add-one in-block" data-bind="text:other_add,event:{drop:window.drop_add_app}"></span>
         </p>
-        <p class="other-appicon" data-bind="foreach: tools,visible:tools().length>0">
-            <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_app">
-                <svg class="icon ft-48" aria-hidden="true">
-                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
-                </svg>
-                <span class="block mar-t" data-bind="text:name"></span>
-            </span>
-        </p>
-        <p class="other-appicon" data-bind="foreach: apps,visible:apps().length>0">
-            <span class="in-block mar-l mar-r tc pointer">
-                <svg class="icon ft-48" aria-hidden="true">
-                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
-                </svg>
-                <span class="block mar-t" data-bind="text:name"></span>
-            </span>
-        </p>
+        <div class="other-application-list">
+        	<p class="other-appicon" data-bind="foreach: browsers,visible:browsers().length>0">
+	            <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_app">
+	                <svg class="icon ft-48" aria-hidden="true">
+	                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
+	                </svg>
+	                <span class="block mar-t" data-bind="text:name"></span>
+	            </span>
+	        </p>
+	        <p class="other-appicon tools" data-bind="foreach: tools,visible:tools().length>0">
+	            <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_app">
+	                <svg class="icon ft-48" aria-hidden="true">
+	                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
+	                </svg>
+	                <span class="block mar-t" data-bind="text:name"></span>
+	            </span>
+	        </p>
+	        <p class="other-appicon" data-bind="foreach: apps,visible:apps().length>0">
+	            <span class="in-block mar-l mar-r tc pointer" data-bind="event:{drop:window.drop_open_app},click:window.open_app">
+	                <svg class="icon ft-48" aria-hidden="true">
+	                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
+	                </svg>
+	                <span class="block mar-t" data-bind="text:name"></span>
+	            </span>
+	        </p>
+        </div>
     </div>
 </body>
 <script type="text/javascript">
-    var language = 'chinese';
-    var vm = {
-        my_title:ko.observable(window.internationalization[language].my_title),
-        my_browsers:ko.observableArray(window.webapplicationmenu.my_applicationmenu.browsers),
-        my_tools:ko.observableArray(window.webapplicationmenu.my_applicationmenu.tools),
-        my_apps:ko.observableArray(window.webapplicationmenu.my_applicationmenu.apps),
-        other_title:ko.observable(window.internationalization[language].other_title),
-        browsers:ko.observableArray(window.webapplicationmenu.other_applicationmenu.browsers),
-        tools:ko.observableArray(window.webapplicationmenu.other_applicationmenu.tools),
-        apps:ko.observableArray(window.webapplicationmenu.other_applicationmenu.apps)
-    }
-    ko.applyBindings(vm);
+	var language = 'chinese';
+	XHR.onreadystatechange = function () {
+	    if(XHR.readyState === 4){
+	        if((XHR.status >= 200 && XHR.status < 300) || XHR.status === 304){
+	            //alert(XHR.responseText);
+	            window.webapplicationmenu = JSON.parse(XHR.responseText);
+			    window.vm = {
+			        my_title:ko.observable(window.internationalization[language].my_title),
+			        my_browsers:ko.observableArray(window.webapplicationmenu.my_applicationmenu.browsers),
+			        my_tools:ko.observableArray(window.webapplicationmenu.my_applicationmenu.tools),
+			        my_apps:ko.observableArray(window.webapplicationmenu.my_applicationmenu.apps),
+			        other_title:ko.observable(window.internationalization[language].other_title),
+			     	other_add:ko.observable(window.internationalization[language].other_add),
+			        browsers:ko.observableArray([]),
+			        tools:ko.observableArray(window.webapplicationmenu.other_applicationmenu.tools),
+			        apps:ko.observableArray(window.webapplicationmenu.other_applicationmenu.apps)
+			    }
+			    ko.applyBindings(window.vm);
+	        }else{
+	            //alert("Response wa unsuccessful: " + XHR.status);
+	        }
+	    }
+	};
+	XHR.open('GET', "./config/config.json", true); //异步请求
+	XHR.send(null);
+
+    
+    //remove chrome origin drag event
+    document.addEventListener("dragenter", function (e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+	}, false);
+
+	document.addEventListener("dragover", function (e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+	}, false);
+
+	document.addEventListener("dragleave", function (e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+	}, false);
+
+	document.addEventListener("drop", function (e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+	}, false);
+
 </script>
 </html>

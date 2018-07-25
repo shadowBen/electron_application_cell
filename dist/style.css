@@ -1,3 +1,12 @@
+::-webkit-scrollbar-track-piece{width:5px;background-color:#4e4e5a ;  }
+
+::-webkit-scrollbar{width:5px;height:5px ; }
+
+::-webkit-scrollbar-thumb{height:50px;background:#3fb560;   cursor:pointer;}
+
+::-webkit-scrollbar-thumb:hover{background:#3fb560 ; cursor:pointer}
+}
+
 html,body{
 	margin: 0;
 }
