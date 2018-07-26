@@ -4,7 +4,7 @@ const { ipcMain } = require('electron')
 const fs = require('fs')
 const { shell } = require('electron')
 const path = require('path')
-const flashTrust = require('nw-flash-trust')
+// const flashTrust = require('nw-flash-trust')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -67,24 +67,25 @@ function usingFlash(){
             pluginName = 'libpepflashplayer.so'
             break
     }
-    app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName))
+    // app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName))
+    app.commandLine.appendSwitch('ppapi-flash-path', app.getPath('pepperFlashSystemPlugin'))
     // 可选：指定 flash 的版本，例如 v17.0.0.169
-    // app.commandLine.appendSwitch('ppapi-flash-version', '17.0.0.169')
+    app.commandLine.appendSwitch('ppapi-flash-version', '29.0.0.140')
     return path.join(__dirname, pluginName)
 }
 var configPath = usingFlash();
 Logger.log(configPath);
 Logger.log(app.getPath('pepperFlashSystemPlugin'))
-var appName = 'myApp';
+// var appName = 'myApp';
 
-// Initialization and parsing config file for given appName (if already exists).
-var trustManager = flashTrust.initSync(appName);
-// Alternatively you can provide a custom flash config folder for initialization.
-// This is useful for example if you use Atom Electron and a PPAPI flash plugin (like Pepper Flash),
-// as the flash config folder in this case would be in the Atom Electron data path folder.
-var trustManager = flashTrust.initSync(appName, configPath);
-var list = trustManager.list();
-Logger.log(JSON.stringify(list));
+// // Initialization and parsing config file for given appName (if already exists).
+// var trustManager = flashTrust.initSync(appName);
+// // Alternatively you can provide a custom flash config folder for initialization.
+// // This is useful for example if you use Atom Electron and a PPAPI flash plugin (like Pepper Flash),
+// // as the flash config folder in this case would be in the Atom Electron data path folder.
+// var trustManager = flashTrust.initSync(appName, configPath);
+// var list = trustManager.list();
+// Logger.log(JSON.stringify(list));
 // // adds given filepath to trusted locations
 // // paths must be absolute
 // trustManager.add(path.resolve('path-to', 'file.swf'));
@@ -123,8 +124,8 @@ function createWindow() {
     })
 
     // and load the index.html of the app.
-    mainWindow.loadFile('webview.html')
-    // mainWindow.loadURL('http://192.168.30.5:8094/sso.web/')
+    mainWindow.loadFile('index.html')
+    // mainWindow.loadURL('http://192.168.30.241:8080/RtmpServer')
 
     // Open the DevTools. 开启F12调试 ctrl+shift+i  
     mainWindow.webContents.openDevTools()

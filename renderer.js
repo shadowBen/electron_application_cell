@@ -5,7 +5,6 @@ const { ipcRenderer } = require('electron');
 const fs = require('fs');
 const BrowserWindow = require('electron').remote.BrowserWindow
 const path = require('path')
-var flashTrust = require('nw-flash-trust');
 window.operate_window = function(self,e,cmd){//操作窗口
 	let cmdStr = "";
 	switch(cmd){
@@ -87,7 +86,11 @@ window.drop_add_app = function(self,e){//执行drop文件到指定的程序
 // 分界线 上方为原生exe 下方为 html 版本
 
 window.open_webapp = function(self,e){
-    let win = new BrowserWindow({ useContentSize: true })
+    let win = new BrowserWindow({ 
+    	useContentSize: true,
+    	webSecurity: false,
+    	plugins: true
+    })
 	win.on('close', function () { win = null })
 	let modalPath = "";
 	if(self.url.indexOf('http://')==0 || self.url.indexOf('https://') == 0){
