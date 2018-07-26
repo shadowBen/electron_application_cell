@@ -3,6 +3,8 @@ const { app, BrowserWindow } = require('electron')
 const { ipcMain } = require('electron')
 const fs = require('fs')
 const { shell } = require('electron')
+const path = require('path')
+const flashTrust = require('nw-flash-trust')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,7 +30,7 @@ const dateFormat = function(dates, format) { // dates 支持时间戳或者时�
         }
     }
     return format;
-};
+}
 let Logger = {
     logMode: 'file', //file  //决定是cmd打印信息还是在server.log
     logFile: './server.log',
@@ -37,7 +39,7 @@ let Logger = {
         if (_this.logMode == 'cmd') {
             console.log.apply(_this, arguments);
         } else {
-            var path = _this.logFile;
+            let path = _this.logFile;
             fs.exists(path, function(exists) {
                 if (!exists) {
                     // console.log('日志文件不存在!');
@@ -49,18 +51,80 @@ let Logger = {
             });
         }
     }
-};
+}
+// 指定 flash 路径，假定它与 main.js 放在同一目录中。
+function usingFlash(){
+    let path = require('path');
+    let pluginName
+    switch (process.platform) {
+        case 'win32':
+            pluginName = './plugin/flash/pepflashplayer.dll'
+            break
+        case 'darwin':
+            pluginName = 'PepperFlashPlayer.plugin'
+            break
+        case 'linux':
+            pluginName = 'libpepflashplayer.so'
+            break
+    }
+    app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName))
+    // 可选：指定 flash 的版本，例如 v17.0.0.169
+    // app.commandLine.appendSwitch('ppapi-flash-version', '17.0.0.169')
+    return path.join(__dirname, pluginName)
+}
+var configPath = usingFlash();
+Logger.log(configPath);
+Logger.log(app.getPath('pepperFlashSystemPlugin'))
+var appName = 'myApp';
+
+// Initialization and parsing config file for given appName (if already exists).
+var trustManager = flashTrust.initSync(appName);
+// Alternatively you can provide a custom flash config folder for initialization.
+// This is useful for example if you use Atom Electron and a PPAPI flash plugin (like Pepper Flash),
+// as the flash config folder in this case would be in the Atom Electron data path folder.
+var trustManager = flashTrust.initSync(appName, configPath);
+var list = trustManager.list();
+Logger.log(JSON.stringify(list));
+// // adds given filepath to trusted locations
+// // paths must be absolute
+// trustManager.add(path.resolve('path-to', 'file.swf'));
+
+// // whole folders are also allowed
+// trustManager.add(path.resolve('path-to', 'folder'));
+
+// // removes given path from trusted locations
+// trustManager.remove(path.resolve('path-to', 'file.swf'));
+
+// // returns true or false whether given path is trusted or not
+// var isTrusted = trustManager.isTrusted(path.resolve('path-to', 'file.swf'));
+
+// // returns array containing all trusted paths
+// var list = trustManager.list();
+
+// // removes all trusted locations from config file
+// trustManager.empty();
+
+
 
 function createWindow() {
     // Create the browser window.
     // mainWindow = new BrowserWindow({width: 800, height: 600})
     //autoHideMenuBar: true  带头 不带menu
     //无标题操作栏
-    mainWindow = new BrowserWindow({ width: 936, height: 612, resizable: false, maximizable: false, useContentSize: true })
+    mainWindow = new BrowserWindow({ 
+        width: 936, 
+        height: 612, 
+        resizable: false, 
+        maximizable: false, 
+        useContentSize: true, 
+        webPreferences: {
+            plugins: true   
+        }
+    })
 
     // and load the index.html of the app.
-    mainWindow.loadFile('index.html')
-    // mainWindow.loadURL('http://m.baidu.com/')
+    mainWindow.loadFile('webview.html')
+    // mainWindow.loadURL('http://192.168.30.5:8094/sso.web/')
 
     // Open the DevTools. 开启F12调试 ctrl+shift+i  
     mainWindow.webContents.openDevTools()
@@ -99,7 +163,6 @@ app.on('activate', function() {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-var path = require('path');
 var handleStartupEvent = function() {
     if (process.platform !== 'win32') {
         return false;

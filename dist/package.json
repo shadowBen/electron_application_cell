@@ -25,6 +25,7 @@
   "dependencies": {
     "electron-packager": "^12.1.0",
     "grunt": "^1.0.3",
-    "grunt-electron-installer": "^2.1.0"
+    "grunt-electron-installer": "^2.1.0",
+    "nw-flash-trust": "^0.3.0"
   }
 }

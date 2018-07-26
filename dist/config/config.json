@@ -10,6 +10,10 @@
                 "name": "JSON Format",
                 "icon": "#icon-json-",
                 "url":"webapplication/JsonView.html"
+            },{
+                "name": "JSON Format",
+                "icon": "#icon-json-",
+                "url":"http://192.168.30.5:8094/sso.web"
             }
         ],
         "apps":[
