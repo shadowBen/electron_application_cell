@@ -4,7 +4,26 @@
 const { ipcRenderer } = require('electron');
 const fs = require('fs');
 const BrowserWindow = require('electron').remote.BrowserWindow
+const app = require('electron').remote.app
 const path = require('path')
+function usingFlash(){
+    let pluginName
+    switch (process.platform) {
+        case 'win32':
+            pluginName = './plugin/flash/pepflashplayer64_29_0_0_140.dll'
+            break
+        case 'darwin':
+            pluginName = 'PepperFlashPlayer.plugin'
+            break
+        case 'linux':
+            pluginName = 'libpepflashplayer.so'
+            break
+    }
+    app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName))
+    return path.join(__dirname, pluginName)
+}
+var configPath = usingFlash();
+console.log(configPath);
 window.operate_window = function(self,e,cmd){//操作窗口
 	let cmdStr = "";
 	switch(cmd){
@@ -89,7 +108,9 @@ window.open_webapp = function(self,e){
     let win = new BrowserWindow({ 
     	useContentSize: true,
     	webSecurity: false,
-    	plugins: true
+    	webPreferences: {
+            plugins: true   
+        }
     })
 	win.on('close', function () { win = null })
 	let modalPath = "";

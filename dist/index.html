@@ -26,6 +26,10 @@
         float: left;
         background-color: white;
     }
+    .my-application-list{
+        width: 100%;
+        height: calc(100% - 48px - 28px);
+    }
     .other-application-list{
     	width: 100%;
     	height: calc(100% - 48px - 28px);
@@ -35,6 +39,12 @@
     }
     .other-appicon.tools>span{
     	margin-bottom: 0;
+    }
+    .my-appicon{
+        margin: 0;
+    }
+    .my-appicon>span{
+        margin-bottom: 0;
     }
     .my-appicon>span,.other-appicon>span{
         min-width: 124px;
@@ -48,30 +58,32 @@
 <body class="no-select body">
     <div class="application my-application h100">
         <p class="my-title titles" data-bind="text:my_title"></p>
-        <p class="my-appicon" data-bind="foreach: my_browsers,visible:my_browsers().length>0">
-            <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_webapp">
-                <svg class="icon ft-48" aria-hidden="true">
-                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
-                </svg>
-                <span class="block mar-t" data-bind="text:name"></span>
-            </span>
-        </p>
-        <p class="my-appicon" data-bind="foreach: my_tools,visible:my_tools().length>0">
-            <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_webapp">
-                <svg class="icon ft-48" aria-hidden="true">
-                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
-                </svg>
-                <span class="block mar-t" data-bind="text:name"></span>
-            </span>
-        </p>
-        <p class="my-appicon" data-bind="foreach: my_apps,visible:my_apps().length>0">
-            <span class="in-block mar-l mar-r tc pointer">
-                <svg class="icon ft-48" aria-hidden="true">
-                    <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
-                </svg>
-                <span class="block mar-t" data-bind="text:name"></span>
-            </span>
-        </p>
+        <div class="my-application-list">
+            <p class="my-appicon" data-bind="foreach: my_browsers,visible:my_browsers().length>0">
+                <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_webapp">
+                    <svg class="icon ft-48" aria-hidden="true">
+                        <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
+                    </svg>
+                    <span class="block mar-t" data-bind="text:name"></span>
+                </span>
+            </p>
+            <p class="my-appicon" data-bind="foreach: my_tools,visible:my_tools().length>0">
+                <span class="in-block mar-l mar-r tc pointer" data-bind="click:window.open_webapp">
+                    <svg class="icon ft-48" aria-hidden="true">
+                        <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
+                    </svg>
+                    <span class="block mar-t" data-bind="text:name"></span>
+                </span>
+            </p>
+            <p class="my-appicon" data-bind="foreach: my_apps,visible:my_apps().length>0">
+                <span class="in-block mar-l mar-r tc pointer">
+                    <svg class="icon ft-48" aria-hidden="true">
+                        <use data-bind="attr:{'xlink:href':icon}" xlink:href=""></use>
+                    </svg>
+                    <span class="block mar-t" data-bind="text:name"></span>
+                </span>
+            </p>
+        </div>
     </div>
     <div class="application other-application h100">
         <p class="other-title titles">

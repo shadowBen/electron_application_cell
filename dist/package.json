@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "copy": "cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json",
+    "copy": "rm -rf installer && cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json",
     "exe": "npm run copy && electron-packager ./dist WebApplication --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
     "win32": "npm run exe && grunt --force"
   },
