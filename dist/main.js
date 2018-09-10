@@ -4,7 +4,6 @@ const { ipcMain } = require('electron')
 const fs = require('fs')
 const { shell } = require('electron')
 const path = require('path')
-const flashTrust = require('nw-flash-trust')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -54,11 +53,10 @@ let Logger = {
 }
 // 指定 flash 路径，假定它与 main.js 放在同一目录中。
 function usingFlash(){
-    let path = require('path');
     let pluginName
     switch (process.platform) {
         case 'win32':
-            pluginName = './plugin/flash/pepflashplayer.dll'
+            pluginName = './plugin/flash/pepflashplayer64_29_0_0_140.dll'
             break
         case 'darwin':
             pluginName = 'PepperFlashPlayer.plugin'
@@ -68,43 +66,14 @@ function usingFlash(){
             break
     }
     app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName))
+    // app.commandLine.appendSwitch('ppapi-flash-path', app.getPath('pepperFlashSystemPlugin'))
     // 可选：指定 flash 的版本，例如 v17.0.0.169
-    // app.commandLine.appendSwitch('ppapi-flash-version', '17.0.0.169')
+    // app.commandLine.appendSwitch('ppapi-flash-version', '29.0.0.140')
     return path.join(__dirname, pluginName)
 }
 var configPath = usingFlash();
 Logger.log(configPath);
 Logger.log(app.getPath('pepperFlashSystemPlugin'))
-var appName = 'myApp';
-
-// Initialization and parsing config file for given appName (if already exists).
-var trustManager = flashTrust.initSync(appName);
-// Alternatively you can provide a custom flash config folder for initialization.
-// This is useful for example if you use Atom Electron and a PPAPI flash plugin (like Pepper Flash),
-// as the flash config folder in this case would be in the Atom Electron data path folder.
-var trustManager = flashTrust.initSync(appName, configPath);
-var list = trustManager.list();
-Logger.log(JSON.stringify(list));
-// // adds given filepath to trusted locations
-// // paths must be absolute
-// trustManager.add(path.resolve('path-to', 'file.swf'));
-
-// // whole folders are also allowed
-// trustManager.add(path.resolve('path-to', 'folder'));
-
-// // removes given path from trusted locations
-// trustManager.remove(path.resolve('path-to', 'file.swf'));
-
-// // returns true or false whether given path is trusted or not
-// var isTrusted = trustManager.isTrusted(path.resolve('path-to', 'file.swf'));
-
-// // returns array containing all trusted paths
-// var list = trustManager.list();
-
-// // removes all trusted locations from config file
-// trustManager.empty();
-
-
 
 function createWindow() {
     // Create the browser window.
@@ -123,11 +92,11 @@ function createWindow() {
     })
 
     // and load the index.html of the app.
-    mainWindow.loadFile('webview.html')
-    // mainWindow.loadURL('http://192.168.30.5:8094/sso.web/')
+    mainWindow.loadFile('index.html')
+    // mainWindow.loadURL('http://192.168.30.241:8080/RtmpServer/index.html')
 
     // Open the DevTools. 开启F12调试 ctrl+shift+i  
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {

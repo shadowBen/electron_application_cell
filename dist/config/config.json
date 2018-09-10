@@ -3,17 +3,21 @@
         "browsers": [{
                 "name": "H5 Browser",
                 "icon": "#icon-browser",
-                "url":"webapplication/bejson.html"
+                "url":"webapplication/browser/HtmlBrowser.html"
             }
         ],
         "tools":[{
                 "name": "JSON Format",
                 "icon": "#icon-json-",
-                "url":"webapplication/JsonView.html"
+                "url":"webapplication/json/JsonView.html"
+            },{
+                "name": "Base64 Format",
+                "icon": "#icon-transfer1",
+                "url":"webapplication/base64/ImageToBase.html"
             },{
                 "name": "JSON Format",
                 "icon": "#icon-json-",
-                "url":"http://192.168.30.241:8080/RtmpServer"
+                "url":"http://192.168.30.241:8080/RtmpServer/index.html"
             }
         ],
         "apps":[
@@ -23,7 +27,7 @@
         "tools":[{
                 "name": "Terminal & Cmd",
                 "icon": "#icon-Terminal",
-                "cmd": "cmd /K 'cd/d %USERPROFILE%'"
+                "cmd": "cmd /K \"cd /d %USERPROFILE%\""
             },{
                 "name": "JSON Viewer",
                 "icon": "#icon-jsongeshihua",
@@ -34,11 +38,13 @@
                 "cmd": "iexplore"
             }
         ],
-        "apps":[{
+        "apps":[
+            {
                 "name": "Sublime Text",
                 "icon": "#icon-Sublime",
                 "cmd": "resources/app/winapplication/Sublime/sublime_text.exe"
-            },{
+            },
+            {
                 "name": "Google Chrome",
                 "icon": "#icon-Chrome",
                 "cmd": "chrome"
