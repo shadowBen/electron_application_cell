@@ -105,13 +105,20 @@ window.drop_add_app = function(self,e){//执行drop文件到指定的程序
 // 分界线 上方为原生exe 下方为 html 版本
 
 window.open_webapp = function(self,e){
-    let win = new BrowserWindow({ 
+	var option = { 
     	useContentSize: true,
     	webSecurity: false,
     	webPreferences: {
-            plugins: true   
+            plugins: true
         }
-    })
+    };
+    for(var key in self){
+		option[key]=self[key];
+    }
+    let win = new BrowserWindow(option);
+    if(self.setmenu==-1){
+    	win.setMenu(null);
+    }
 	win.on('close', function () { win = null })
 	let modalPath = "";
 	if(self.url.indexOf('http://')==0 || self.url.indexOf('https://') == 0){

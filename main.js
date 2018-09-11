@@ -91,6 +91,8 @@ function createWindow() {
         }
     })
 
+    mainWindow.setMenu(null);//no menu
+
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
     // mainWindow.loadURL('http://192.168.30.241:8080/RtmpServer/index.html')

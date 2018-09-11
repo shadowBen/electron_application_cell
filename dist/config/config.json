@@ -3,21 +3,28 @@
         "browsers": [{
                 "name": "H5 Browser",
                 "icon": "#icon-browser",
-                "url":"webapplication/browser/HtmlBrowser.html"
+                "url":"webapplication/electron-demo/webview/browser/browser.html"
             }
         ],
         "tools":[{
                 "name": "JSON Format",
                 "icon": "#icon-json-",
+                "setmenu":-1,
                 "url":"webapplication/json/JsonView.html"
             },{
                 "name": "Base64 Format",
                 "icon": "#icon-transfer1",
+                "setmenu":-1,
                 "url":"webapplication/base64/ImageToBase.html"
             },{
-                "name": "JSON Format",
-                "icon": "#icon-json-",
-                "url":"http://192.168.30.241:8080/RtmpServer/index.html"
+                "name": "Calculate",
+                "icon": "#icon-shangwutubiao-",
+                "width": 330,
+                "height":540,
+                "resizable": false,
+                "maximizable":false,
+                "setmenu":-1,
+                "url":"webapplication/calc/calc.html"
             }
         ],
         "apps":[
