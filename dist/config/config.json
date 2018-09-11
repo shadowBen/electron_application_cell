@@ -25,6 +25,11 @@
                 "maximizable":false,
                 "setmenu":-1,
                 "url":"webapplication/calc/calc.html"
+            },{
+                "name": "Base64 Format",
+                "icon": "#icon-transfer1",
+                "setmenu":-1,
+                "url":"http://192.168.30.241:8080/RtmpServer/"
             }
         ],
         "apps":[

@@ -128,7 +128,7 @@ window.open_webapp = function(self,e){
 	}
 	console.log(modalPath)
 	win.loadURL(modalPath)
-	win.webContents.openDevTools()
+	// win.webContents.openDevTools()
 	win.once('ready-to-show', () => {
 	    win.show()
   	})

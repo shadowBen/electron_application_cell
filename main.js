@@ -62,7 +62,7 @@ function usingFlash(){
             pluginName = 'PepperFlashPlayer.plugin'
             break
         case 'linux':
-            pluginName = 'libpepflashplayer.so'
+            pluginName = './plugin/flash/libpepflashplayer.so'
             break
     }
     app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName))
@@ -73,7 +73,7 @@ function usingFlash(){
 }
 var configPath = usingFlash();
 Logger.log(configPath);
-Logger.log(app.getPath('pepperFlashSystemPlugin'))
+// Logger.log(app.getPath('pepperFlashSystemPlugin'))
 
 function createWindow() {
     // Create the browser window.
