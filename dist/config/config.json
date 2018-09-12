@@ -7,7 +7,7 @@
             }
         ],
         "tools":[{
-                "name": "JSON Format",
+                "name": "JSON View",
                 "icon": "#icon-json-",
                 "setmenu":-1,
                 "url":"webapplication/json/JsonView.html"
@@ -26,7 +26,7 @@
                 "setmenu":-1,
                 "url":"webapplication/calc/calc.html"
             },{
-                "name": "Base64 Format",
+                "name": "Flash Test",
                 "icon": "#icon-transfer1",
                 "setmenu":-1,
                 "url":"http://192.168.30.241:8080/RtmpServer/"

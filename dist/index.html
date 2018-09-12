@@ -136,6 +136,10 @@
 			        tools:ko.observableArray(window.webapplicationmenu.other_applicationmenu.tools),
 			        apps:ko.observableArray(window.webapplicationmenu.other_applicationmenu.apps)
 			    }
+                if(!!process && process.platform != "win32"){
+                    document.querySelector('.my-application').style.width = "100%";
+                    document.querySelector('.other-application').style.display = "none";
+                }
 			    ko.applyBindings(window.vm);
 	        }else{
 	            //alert("Response wa unsuccessful: " + XHR.status);
