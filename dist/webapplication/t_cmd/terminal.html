@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<head>
+    <meta charset="utf-8">
+    <title>JSONView</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="./xterm.css">
+    <script src="./xterm.js"></script>
+    <script src="../../renderer.js"></script>
+</head>
+
+<body onunload="destory()">
+	<div id="terminal"></div>
+</body>
+<script type="text/javascript">
+let times = 0;
+
+	let terminalId = -1;
+	let letter = "null";
+	let xterm = new Terminal();
+    xterm.open(document.getElementById('terminal'));
+    xterm.textarea.onkeydown = function (e) {
+		console.log('User pressed key with keyCode: ', e.keyCode);
+	}
+
+	// xterm.attachCustomKeyEventHandler(function (e) {
+	// 	if (e.keyCode == 13) {
+	// 		console.log('enter');
+	// 		times++;
+	// 		console.log(times);
+	// 		window.exec("\x0d", terminalId);
+	// 		return false;
+	// 	}
+	// });
+
+	xterm.on('data',function(data){
+		letter = data;
+	 	window.exec(data, terminalId);
+	})
+
+	xterm.on('output', arrayBuffer => {
+		console.log('output===',arrayBuffer)
+		xterm.write(arrayBuffer);
+	});
+
+	xterm.on('blur', arrayBuffer => {
+		console.log('blur===',arrayBuffer)
+		xterm.write(arrayBuffer);
+	});
+
+	xterm.on('focus', arrayBuffer => {
+		console.log('focus===',arrayBuffer)
+		xterm.write(arrayBuffer);
+	});
+
+	xterm.on('keydown', arrayBuffer => {
+		console.log('keydown===',arrayBuffer)
+		xterm.write(arrayBuffer);
+	});
+
+
+	xterm.on('lineFeed', arrayBuffer => {
+		console.log('lineFeed===',arrayBuffer)
+		xterm.write(arrayBuffer);
+	});
+
+	xterm.on('resize', size => {
+		xterm.write('resize', [size.cols, size.rows]);
+		console.log('resize', [size.cols, size.rows]);
+	})
+
+	//监听mian process里发出的message
+	ipcRenderer.on('asynchronous-reply', (event, arg) => {
+		// console.log("webmsg:" + arg);//main progress 返回terminalid；
+		if(letter == arg){
+			console.log("keyboardInput==>"+arg);
+			xterm.write(letter);
+		}else if(arg.indexOf("PID_IS:")>=0){
+			terminalId = arg.split(":")[1];
+			console.log("TERMINALID:"+terminalId);
+		}else{
+			console.log("resp:"+arg);
+			xterm.write(arg);
+		}
+	})
+	window.createExec();
+
+	var destory = function(){
+		window.destoryc(terminalId);
+	}
+
+</script>
+</html>

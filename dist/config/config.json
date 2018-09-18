@@ -4,6 +4,11 @@
                 "name": "H5 Browser",
                 "icon": "#icon-browser",
                 "url":"webapplication/electron-demo/webview/browser/browser.html"
+            },
+            {
+                "name": "Terminal & Cmd",
+                "icon": "#icon-Terminal",
+                "url": "webapplication/t_cmd/terminal.html"
             }
         ],
         "tools":[{

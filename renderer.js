@@ -6,24 +6,7 @@ const fs = require('fs');
 const BrowserWindow = require('electron').remote.BrowserWindow
 const app = require('electron').remote.app
 const path = require('path')
-function usingFlash(){
-    let pluginName
-    switch (process.platform) {
-        case 'win32':
-            pluginName = './plugin/flash/pepflashplayer64_29_0_0_140.dll'
-            break
-        case 'darwin':
-            pluginName = 'PepperFlashPlayer.plugin'
-            break
-        case 'linux':
-            pluginName = 'libpepflashplayer.so'
-            break
-    }
-    app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName))
-    return path.join(__dirname, pluginName)
-}
-var configPath = usingFlash();
-console.log(configPath);
+ 
 window.operate_window = function(self,e,cmd){//操作窗口
 	let cmdStr = "";
 	switch(cmd){
@@ -47,7 +30,7 @@ window.open_app = function(self,e){//执行cmd命令 一般用于开启应用程
 }
 window.drop_open_app = function(self,e){//执行drop文件到指定的程序
 	try{
-		var cmdwithfile = self.cmd +" " + e.dataTransfer.files[0].path
+		let cmdwithfile = self.cmd +" " + e.dataTransfer.files[0].path
 		ipcRenderer.send('open-app', cmdwithfile)
 	}catch(e){
 		//捕获拉取的不是文件而是快捷方式等
@@ -102,10 +85,40 @@ window.drop_add_app = function(self,e){//执行drop文件到指定的程序
 	  	}
 	}
 }
+//创建terminal会话
+window.createExec = function(self,e){
+	try{
+		ipcRenderer.send('terminal', null)
+	}catch(e){
+		//捕获拉取的不是文件而是快捷方式等
+	}
+}
+//发送terminal命令
+window.exec = function(cmds,terminalId){
+	try{
+		let cmdinfo = {
+			"cmdStr":cmds,
+			"terminalID":terminalId
+		}
+		ipcRenderer.send('terminal-cmd', cmdinfo)
+	}catch(e){
+		//捕获拉取的不是文件而是快捷方式等
+	}
+}
+//发送销毁terminal命令
+window.destoryc = function(terminalId){
+	try{
+		let terminalIds = terminalId;
+		ipcRenderer.send('terminal-cmd-close', terminalIds)
+	}catch(e){
+		//捕获拉取的不是文件而是快捷方式等
+	}
+}
+
 // 分界线 上方为原生exe 下方为 html 版本
 
 window.open_webapp = function(self,e){
-	var option = { 
+	let option = { 
     	useContentSize: true,
     	webSecurity: false,
     	webPreferences: {
