@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <title>Web Applications</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./dist/style.css">
     <script src="./renderer.js"></script>
-    <script src="./internationalization/internationalization.js"></script>
-    <script src="./iconfont/iconfont.js"></script>
-    <script src="./knockout.min.js"></script>
-    <script src="./network.js"></script>
+    <script src="./dist/internationalization/internationalization.js"></script>
+    <script src="./dist/iconfont/iconfont.js"></script>
+    <script src="./dist/knockout.min.js"></script>
+    <script src="./dist/network.js"></script>
     <style type="text/css">
     body{
         height: 612px;
@@ -148,7 +148,7 @@
 	        }
 	    }
 	};
-	XHR.open('GET', "./config/config.json", true); //异步请求
+	XHR.open('GET', "./dist/config/config.json", true); //异步请求
 	XHR.send(null);
 
     

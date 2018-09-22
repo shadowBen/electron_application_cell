@@ -95,7 +95,7 @@ function createWindow() {
     mainWindow.setMenu(null);//no menu
 
     // and load the index.html of the app.
-    mainWindow.loadFile('index.html')
+    mainWindow.loadFile('./index.html')
     // mainWindow.loadURL('http://192.168.30.241:8080/RtmpServer/index.html')
 
     // Open the DevTools. 开启F12调试 ctrl+shift+i  
@@ -254,7 +254,7 @@ ipcMain.on('terminal', (event, arg) => {
           cwd: process.env.HOME,//process.env.PWD,
           env: process.env
         });
-    console.log('Created terminal with PID: ' + term.pid);
+    Logger.log('Created terminal with PID: ' + term.pid);
     terminals[term.pid] = term;
     logs[term.pid] = '';
     term.on('data', function(data) {

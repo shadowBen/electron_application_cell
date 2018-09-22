@@ -3,7 +3,7 @@
         "browsers": [{
                 "name": "H5 Browser",
                 "icon": "#icon-browser",
-                "url":"webapplication/electron-demo/webview/browser/browser.html"
+                "url":"dist/webapplication/electron-demo/webview/browser/browser.html"
             },
             {
                 "name": "Terminal",
@@ -13,7 +13,7 @@
                 "resizable": false,
                 "title":"Terminal",
                 "setmenu":-1,
-                "url": "webapplication/t_cmd/terminal.html"
+                "url":"dist/webapplication/t_cmd/terminal.html"
             }
         ],
         "tools":[{
@@ -21,13 +21,13 @@
                 "icon": "#icon-json-",
                 "setmenu":-1,
                 "title":"JSONView",
-                "url":"webapplication/json/JsonView.html"
+                "url":"dist/webapplication/json/JsonView.html"
             },{
                 "name": "Base64 Format",
                 "icon": "#icon-transfer1",
                 "setmenu":-1,
                 "title":"Base64 Format",
-                "url":"webapplication/base64/ImageToBase.html"
+                "url":"dist/webapplication/base64/ImageToBase.html"
             },{
                 "name": "Calculate",
                 "icon": "#icon-shangwutubiao-",
@@ -37,7 +37,7 @@
                 "maximizable":false,
                 "title":"Calculate",
                 "setmenu":-1,
-                "url":"webapplication/calc/calc.html"
+                "url":"dist/webapplication/calc/calc.html"
             },{
                 "name": "Flash Test",
                 "icon": "#icon-transfer1",
