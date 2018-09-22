@@ -3,14 +3,14 @@
 	
 <head>
     <meta charset="utf-8">
-    <title>JSONView</title>
+    <title>Terminal</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" type="text/css" href="./xterm.css">
     <script src="./xterm.js"></script>
     <script src="../../renderer.js"></script>
 </head>
 
-<body onunload="destory()">
+<body onunload="destory()" style="margin: 0">
 	<div id="terminal"></div>
 </body>
 <script type="text/javascript">
@@ -69,7 +69,7 @@ let times = 0;
 		xterm.write('resize', [size.cols, size.rows]);
 		console.log('resize', [size.cols, size.rows]);
 	})
-
+	debugger;
 	//监听mian process里发出的message
 	ipcRenderer.on('asynchronous-reply', (event, arg) => {
 		// console.log("webmsg:" + arg);//main progress 返回terminalid；
@@ -79,6 +79,7 @@ let times = 0;
 		}else if(arg.indexOf("PID_IS:")>=0){
 			terminalId = arg.split(":")[1];
 			console.log("TERMINALID:"+terminalId);
+			document.querySelector('title').innerHTML = "Terminal~"+terminalId;
 		}else{
 			console.log("resp:"+arg);
 			xterm.write(arg);

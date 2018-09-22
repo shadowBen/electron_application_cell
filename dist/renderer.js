@@ -112,7 +112,6 @@ window.destoryc = function(terminalId){
 		ipcRenderer.send('terminal-cmd-close', terminalIds)
 	}catch(e){
 		//捕获拉取的不是文件而是快捷方式等
-		debugger;
 	}
 }
 

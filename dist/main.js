@@ -83,6 +83,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({ 
         width: 936, 
         height: 612, 
+        title:"Web Applications",
         resizable: false, 
         maximizable: false, 
         useContentSize: true, 
@@ -224,18 +225,23 @@ ipcMain.on('open-app', (event, arg) => {
 
 //通信模块，mian process与renderer process（web page）页面和主进程通信
 //监听web page里发出的message
-ipcMain.on('asynchronous-message', (event, arg) => {
-    Logger.log("mian1" + arg) // prints "ping"
-    event.sender.send('asynchronous-reply', 'pong') //在main process里向web page发出message
-})
-ipcMain.on('synchronous-message', (event, arg) => {
-    Logger.log("mian2" + arg) // prints "ping"
-    event.returnValue = 'pong'
-})
+// ipcMain.on('asynchronous-message', (event, arg) => {
+//     Logger.log("mian1" + arg) // prints "ping"
+//     event.sender.send('asynchronous-reply', 'pong') //在main process里向web page发出message
+// })
+// ipcMain.on('synchronous-message', (event, arg) => {
+//     Logger.log("mian2" + arg) // prints "ping"
+//     event.returnValue = 'pong'
+// })
 
 
 //命令行模块
-var pty = require('node-pty');
+try{
+    // var pty = require('node-pty');
+    var pty = require('pty.js');
+}catch(e){
+    Logger.log(e);
+}
 var terminals = {},
     logs = {};
 ipcMain.on('terminal', (event, arg) => {
@@ -245,17 +251,16 @@ ipcMain.on('terminal', (event, arg) => {
           name: 'xterm-color',
           cols: cols || 80,
           rows: rows || 24,
-          cwd: process.env.PWD,
+          cwd: process.env.HOME,//process.env.PWD,
           env: process.env
         });
-
     console.log('Created terminal with PID: ' + term.pid);
     terminals[term.pid] = term;
     logs[term.pid] = '';
     term.on('data', function(data) {
         logs[term.pid] += data;
         try {
-            console.log("回复消息"+data);
+            // console.log("回复消息"+data);
             event.sender.send('asynchronous-reply', data);
             // ws.send(data);
         } catch (ex) {
@@ -268,16 +273,13 @@ ipcMain.on('terminal-cmd', (event, arg) => {
     let cmd = arg.cmdStr;
     Logger.log(cmd+"----"+arg.terminalID);
     var term = terminals[arg.terminalID];
-    console.log('Connected to terminal ' + term.pid);
+    Logger.log('Send Message'+ cmd +' to terminal ' + term.pid);
     //ws.send(logs[term.pid]);
-
-    
     term.write(cmd);
 })
 ipcMain.on('terminal-cmd-close', (event, arg) => {
-    Logger.log("Kill:----"+arg);
+    Logger.log("ReadyToKill:----"+arg);
     var term = terminals[arg];
-    console.log('Ready to close terminal ' + term.pid);
     term.kill();
     console.log('Closed terminal ' + term.pid);
     // Clean things up

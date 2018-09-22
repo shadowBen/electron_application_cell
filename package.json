@@ -9,7 +9,9 @@
     "start": "cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json && electron ./dist",
     "copy": "rm -rf installer && cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json",
     "exe": "npm run copy && electron-packager ./dist WebApplication --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
-    "win32": "npm run exe && grunt --force"
+    "pkg": "npm run copy && electron-packager ./dist WebApplication --platform=linux --out ./platform/linux/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
+    "win32": "npm run exe && grunt --force",
+    "linux": "npm run pkg"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -21,13 +23,14 @@
   ],
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.9"
+    "electron": "^2.0.9",
+    "electron-rebuild": "^1.8.2"
   },
   "dependencies": {
     "electron-packager": "^12.1.0",
     "grunt": "^1.0.3",
     "grunt-electron-installer": "^2.1.0",
-    "node-pty": "^0.7.7",
-    "nw-flash-trust": "^0.3.0"
+    "nw-flash-trust": "^0.3.0",
+    "pty.js": "^0.3.1"
   }
 }

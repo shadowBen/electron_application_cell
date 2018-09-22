@@ -15,6 +15,7 @@
     body{
         height: 612px;
         margin: 0 8px;
+        visibility: hidden;
     }
     .titles{
         font-size:24px;
@@ -141,6 +142,7 @@
                     document.querySelector('.other-application').style.display = "none";
                 }
 			    ko.applyBindings(window.vm);
+                document.body.style.visibility = "visible";
 	        }else{
 	            //alert("Response wa unsuccessful: " + XHR.status);
 	        }

@@ -6,8 +6,13 @@
                 "url":"webapplication/electron-demo/webview/browser/browser.html"
             },
             {
-                "name": "Terminal & Cmd",
+                "name": "Terminal",
                 "icon": "#icon-Terminal",
+                "width": 784,
+                "height": 383,
+                "resizable": false,
+                "title":"Terminal",
+                "setmenu":-1,
                 "url": "webapplication/t_cmd/terminal.html"
             }
         ],
@@ -15,11 +20,13 @@
                 "name": "JSON View",
                 "icon": "#icon-json-",
                 "setmenu":-1,
+                "title":"JSONView",
                 "url":"webapplication/json/JsonView.html"
             },{
                 "name": "Base64 Format",
                 "icon": "#icon-transfer1",
                 "setmenu":-1,
+                "title":"Base64 Format",
                 "url":"webapplication/base64/ImageToBase.html"
             },{
                 "name": "Calculate",
@@ -28,12 +35,14 @@
                 "height":540,
                 "resizable": false,
                 "maximizable":false,
+                "title":"Calculate",
                 "setmenu":-1,
                 "url":"webapplication/calc/calc.html"
             },{
                 "name": "Flash Test",
                 "icon": "#icon-transfer1",
                 "setmenu":-1,
+                "title":"Flash Test",
                 "url":"http://192.168.30.241:8080/RtmpServer/"
             }
         ],
