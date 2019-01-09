@@ -1,0 +1,35 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "author": "BenjaminWYj",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "gitpush": "git push --progress origin master:master",
+    "start": "npm run copy && electron .",
+    "copy": "rm -rf installer && cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json",
+    "exe": "electron-packager ./ WebApplication --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
+    "pkg": "electron-packager ./ WebApplication --platform=linux --out ./platform/linux/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
+    "win32": "npm run exe && grunt --force",
+    "linux": "npm run pkg"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^2.0.9",
+    "electron-rebuild": "^1.8.2",
+    "electron-packager": "^12.1.0",
+    "grunt": "^1.0.3",
+    "grunt-electron-installer": "^2.1.0"
+  },
+  "dependencies": {
+    "nw-flash-trust": "^0.3.0"
+  }
+}

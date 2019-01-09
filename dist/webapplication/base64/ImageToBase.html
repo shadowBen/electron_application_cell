@@ -8,7 +8,7 @@
     <style type="text/css">
     .w75.center.h400 {
         margin-top: 40px;
-        width:90%;
+        width: 90%;
     }
 
     .w100 {
@@ -40,12 +40,105 @@
     .w25 {
         width: 25%
     }
+
+    .w75>form {
+        height: 150px;
+    }
+
+    form>label {
+        width: 100%;
+        height: 100%;
+        line-height: 150px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        font-size: 18px;
+    }
+
+    form input {
+        width: 0;
+        height: 0;
+        visibility: hidden;
+    }
+
+    .w75>textarea {
+        height: 394px;
+        width: calc(100% - 4px);
+        margin: 0;
+        border-width: 0;
+        border-top-width: 1px;
+    }
     </style>
 </head>
 
 <body>
-    <div class="w75 center h400">
-        
+    <div class="w75 center h400" style="border:1px solid #ccc">
+        <form>
+            <label ondrop="drop(event)" id="abc" for="nba">点击选择或者拖拽文件</label>
+            <input type="file" id="nba" />
+        </form>
+        <textarea readonly="readonly" class="w100 h400" id="cba" name="json_input_result" style="font-size: 16px !important; resize: both;" rows="32" spellcheck="false" placeholder="转换结果"></textarea>
     </div>
+    <script type="text/javascript">
+    function translate(files){
+        if (files.length >= 2) {
+            alert("暂不支持转换多个文件");
+        } else {
+            var f = files[0];
+            if (!!f) {
+                content.value = "文件转换中...";
+                var worker = new Worker("./worker.js");
+                worker.postMessage(f);
+                worker.onmessage = function (e) {
+                    // console.log(e.data)
+                    if (f.type.indexOf('image') >= 0) {
+                        label.innerText = "";
+                        label.style.backgroundImage = 'url(' + e.data + ')';
+                    } else {
+                        label.innerText = f.name;
+                        label.style.backgroundImage = "none";
+                    }
+                    content.value = e.data;
+                };
+            }
+        }
+    }
+    var label = document.getElementById('abc');
+    var content = document.getElementById('cba');
+    var input = document.getElementById('nba');
+    input.addEventListener('change',function(e){
+        debugger;
+        translate(e.target.files);
+    });
+    function drop(e) {
+        e.preventDefault();
+        //结束时被拖拽元素放入投放区域中
+        translate(e.dataTransfer.files);
+    }
+    window.onload = function() {
+        //remove chrome origin drag event
+        document.addEventListener("dragenter", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, false);
+
+        document.addEventListener("dragover", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, false);
+
+        document.addEventListener("dragleave", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, false);
+
+        document.addEventListener("drop", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, false);
+    }
     </script>
 </body>
+
+</html>

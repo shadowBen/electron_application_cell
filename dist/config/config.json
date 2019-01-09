@@ -21,17 +21,19 @@
                 "icon": "#icon-json-",
                 "setmenu":-1,
                 "title":"JSONView",
+                "resizable": false,
                 "url":"dist/webapplication/json/JsonView.html"
             },{
                 "name": "Base64 Format",
                 "icon": "#icon-transfer1",
                 "setmenu":-1,
                 "title":"Base64 Format",
+                "resizable": false,
                 "url":"dist/webapplication/base64/ImageToBase.html"
             },{
                 "name": "Calculate",
                 "icon": "#icon-shangwutubiao-",
-                "width": 330,
+                "width": 320,
                 "height":540,
                 "resizable": false,
                 "maximizable":false,
@@ -57,7 +59,7 @@
             },{
                 "name": "JSON Viewer",
                 "icon": "#icon-jsongeshihua",
-                "cmd": "resources/app/winapplication/JsonView/JsonView.exe"
+                "cmd": "dist/winapplication/JsonView/JsonView.exe"
             },{
                 "name": "Internet Exporter",
                 "icon": "#icon-ie",
@@ -65,11 +67,6 @@
             }
         ],
         "apps":[
-            {
-                "name": "Sublime Text",
-                "icon": "#icon-Sublime",
-                "cmd": "resources/app/winapplication/Sublime/sublime_text.exe"
-            },
             {
                 "name": "Google Chrome",
                 "icon": "#icon-Chrome",
