@@ -6,10 +6,11 @@
   "main": "main.js",
   "scripts": {
     "gitpush": "git push --progress origin master:master",
+    "rebuild": "./node_modules/.bin/electron-rebuild.cmd --debug --dist-url https://gh-contractor-zcbenz.s3.amazonaws.com/atom-shell/dist/",
     "start": "electron .",
     "copy": "rm -rf installer && cp -r ./renderer.js ./dist/renderer.js && cp -r ./main.js ./dist/main.js && cp -r ./package.json ./dist/package.json",
-    "exe": "electron-packager ./ WebApplication --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
-    "pkg": "electron-packager ./ WebApplication --platform=linux --out ./platform/linux/ --arch=x64 --overwrite --electron-version=2.0.4 --icon=favicon.ico",
+    "exe": "electron-packager ./ WebApplication --win --out ./platform/win32/ --arch=x64 --overwrite --electron-version=3.1.8 --icon=favicon.ico",
+    "pkg": "electron-packager ./ WebApplication --platform=linux --out ./platform/linux/ --arch=x64 --overwrite --electron-version=3.1.8 --icon=favicon.ico",
     "win32": "npm run exe && grunt --force",
     "linux": "npm run pkg"
   },
@@ -23,14 +24,15 @@
   ],
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.9",
-    "electron-rebuild": "^1.8.2",
+    "electron": "^3.1.8",
     "electron-packager": "^12.1.0",
-    "grunt": "^1.0.3",
-    "grunt-electron-installer": "^2.1.0"
+    "electron-rebuild": "^1.8.4",
+    "grunt": "^1.0.4",
+    "grunt-electron-installer": "^2.1.0",
+    "node-abi": "^2.7.1"
   },
   "dependencies": {
-    "nw-flash-trust": "^0.3.0",
-    "pty.js": "^0.3.1"
+    "node-pty": "^0.8.1",
+    "nw-flash-trust": "^0.3.0"
   }
 }

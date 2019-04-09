@@ -8,8 +8,8 @@
             {
                 "name": "Terminal",
                 "icon": "#icon-Terminal",
-                "width": 784,
-                "height": 383,
+                "width": 740,
+                "height": 428,
                 "resizable": false,
                 "title":"Terminal",
                 "setmenu":-1,

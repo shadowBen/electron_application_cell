@@ -69,7 +69,6 @@ let times = 0;
 		xterm.write('resize', [size.cols, size.rows]);
 		console.log('resize', [size.cols, size.rows]);
 	})
-	debugger;
 	//监听mian process里发出的message
 	ipcRenderer.on('asynchronous-reply', (event, arg) => {
 		// console.log("webmsg:" + arg);//main progress 返回terminalid；

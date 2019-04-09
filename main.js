@@ -237,8 +237,8 @@ ipcMain.on('open-app', (event, arg) => {
 
 //命令行模块
 try{
-    // var pty = require('node-pty');
-    var pty = require('pty.js');
+    var pty = require('node-pty');
+    // var pty = require('pty.js');
 }catch(e){
     Logger.log(e);
 }
